@@ -9,6 +9,7 @@ export default class Cookbook extends React.Component {
         this.state = {
             recipes: [
                 {
+                    category:'Dania mięsne',
                     name: 'Rosół drobiowy',
                     ingredients: [
                         '1 kurczak o wadze ok. 1,2- 1,5 kg',
@@ -24,6 +25,7 @@ export default class Cookbook extends React.Component {
                     tips: ['Rosół podawać z ugotowanym makaronem, pokrojoną marchewką, kawałkami mięsa z kurczaka i świeżo posiekaną natką pietruszki lub szczypiorkiem.']
                 },
                 {
+                    category: 'Sałatki',
                     name: 'Surówka Colesław',
                     ingredients: [
                         '1/2 białej kapusty (ok. 750 g)',
@@ -41,6 +43,7 @@ export default class Cookbook extends React.Component {
                     tips: []
                 },
                 {
+                    category: 'Dania mięsne',
                     name: 'Filety kurczaka zapiekane z serem i pieczarkami',
                     ingredients: [
                         '1 podwójny filet z kurczaka',

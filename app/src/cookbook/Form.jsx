@@ -21,6 +21,7 @@ export default class FormCreation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            category: "",
             name: "",
             ingredients: [],
             description: "",
@@ -74,6 +75,7 @@ export default class FormCreation extends React.Component {
 
     handleReset = (event) => {
         this.setState({
+            
             name: "",
             ingredients: [],
             description: "",
@@ -124,17 +126,20 @@ export default class FormCreation extends React.Component {
                 >
                     <Grid item xs={12}>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                            <InputLabel>Kategoria</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                //value=
-                                label="Age"
-                            //onChange={handleChange}
+                               label="Age"
+                               onChange={this.handleChangeCategory}
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value="Ciasta" >Ciasta</MenuItem>
+                                <MenuItem value="Dania mięsne">Dania mięsne</MenuItem>
+                                <MenuItem value="Dania mączne">Dania mączne</MenuItem>
+                                <MenuItem value="Ryby">Ryby</MenuItem>
+                                <MenuItem value="Sałatki">Sałatki</MenuItem>
+                                <MenuItem value="Przetwory">Przetwory</MenuItem>
+                                <MenuItem value="Pieczywo">Pieczywo</MenuItem>
+
+
                             </Select></FormControl>
                     </Grid>
 
@@ -225,4 +230,10 @@ export default class FormCreation extends React.Component {
                     minRows={6} />
             </Grid>;
     }
+
+handleChangeCategory = (event)=> {
+    this.setState(
+        this.state.category = event.target.value
+    )
+}
 }
