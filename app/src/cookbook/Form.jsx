@@ -75,7 +75,7 @@ export default class FormCreation extends React.Component {
 
     handleReset = (event) => {
         this.setState({
-            
+
             name: "",
             ingredients: [],
             description: "",
@@ -128,8 +128,9 @@ export default class FormCreation extends React.Component {
                         <FormControl fullWidth>
                             <InputLabel>Kategoria</InputLabel>
                             <Select
-                               label="Age"
-                               onChange={this.handleChangeCategory}
+                                label="Age"
+                                value={this.state.category}
+                                onChange={this.handleChangeCategory}
                             >
                                 <MenuItem value="Ciasta" >Ciasta</MenuItem>
                                 <MenuItem value="Dania mięsne">Dania mięsne</MenuItem>
@@ -231,9 +232,7 @@ export default class FormCreation extends React.Component {
             </Grid>;
     }
 
-handleChangeCategory = (event)=> {
-    this.setState(
-        this.state.category = event.target.value
-    )
-}
+    handleChangeCategory = (event) => {
+        this.setState({ category: event.target.value })
+    }
 }

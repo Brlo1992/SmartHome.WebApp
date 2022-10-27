@@ -2,14 +2,28 @@ import React from 'react';
 import Recipe from './recipe';
 import FormCreation from './Form';
 import Grid from '@mui/material/Grid';
-
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Collapse from '@mui/material/Collapse';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SendIcon from '@mui/icons-material/Send';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import StarBorder from '@mui/icons-material/StarBorder';
+import RecipesInCategories from './recipesInCategories';
 export default class Cookbook extends React.Component {
+
+
     constructor(props) {
         super(props);
         this.state = {
+            open: false,
             recipes: [
                 {
-                    category:'Dania mięsne',
+                    category: 'Dania mięsne',
                     name: 'Rosół drobiowy',
                     ingredients: [
                         '1 kurczak o wadze ok. 1,2- 1,5 kg',
@@ -71,7 +85,7 @@ export default class Cookbook extends React.Component {
             <Grid item xs={12} sm={2} mx={2} >
                 <h2>Lista przepisów</h2>
                 <ol>
-                {this.showRecipesNames()}
+                    {this.showRecipesNames()}
                 </ol>
             </Grid>
             <Grid item xs={12} sm={6} mx={3}>
@@ -89,7 +103,6 @@ export default class Cookbook extends React.Component {
     showRecipes = () => {
         return <div>
             {this.state.recipes.map((rec, index) => {
-                //return <Recipe recipe={rec} onRecipeDeletion = {()=>this.recipeDeletion(index)}/>
                 return <Recipe index={index} recipe={rec} onRecipeDeletion={this.recipeDeletion} />
 
             })}
@@ -97,11 +110,18 @@ export default class Cookbook extends React.Component {
     }
 
     showRecipesNames = () => {
-        return <div>
-            {this.state.recipes.map((recipe) => {
-                return <li>{recipe.name}</li>
-            })
-                        }
+        const actualCategoryList = this.state.recipes.map((recipe) => {
+            return recipe.category
+        })
+        const categories = new Set(actualCategoryList)
+
+        const uniqueCategory = [...categories];
+        return <div> {uniqueCategory.map((cat) => {
+            const filtredRecipes = this.state.recipes.filter((recipe) => {
+                return recipe.category === cat;
+            });
+            return <RecipesInCategories cat={cat} filtredRecipes={filtredRecipes} />
+        })}
         </div>
     }
     addRecipe = (newRecipe) => {
@@ -110,6 +130,5 @@ export default class Cookbook extends React.Component {
         newRecipes.push(newRecipe);
         this.setState({ recipes: newRecipes });
     }
-
 }
 
