@@ -21,6 +21,13 @@ export default class Cookbook extends React.Component {
         super(props);
         this.state = {
             open: false,
+            selectedRecipe: {
+                category: '',
+                name: '',
+                ingredients: [],
+                description: '',
+                tips: []
+            },
             recipes: [
                 {
                     category: 'Dania mięsne',
@@ -89,9 +96,21 @@ export default class Cookbook extends React.Component {
                 </ol>
             </Grid>
             <Grid item xs={12} sm={6} mx={3}>
-                {this.showRecipes()}
+                {this.showRecipe()}
             </Grid>
         </Grid>)
+    }
+
+    setSelectedRecipe = (recipeName) => {
+        console.log(recipeName)
+        const selRecipe = this.state.recipes.find((recipe)=>{
+            return recipe.name === recipeName 
+        })
+        this.setState({
+            selectedRecipe: {...selRecipe}
+        })
+
+        console.log('dddd '+ JSON.stringify(this.state.selectedRecipe))
     }
 
     recipeDeletion = (index) => {
@@ -108,7 +127,15 @@ export default class Cookbook extends React.Component {
             })}
         </div>
     }
-
+    showRecipe = () => {
+        if (this.state.selectedRecipe.name) {
+            return <Recipe recipe={this.state.selectedRecipe} onRecipeDeletion={this.recipeDeletion} />
+        } else {
+            return <div>
+                <h2>Wybierz przepis łosiu</h2>
+            </div>
+        }
+    }
     showRecipesNames = () => {
         const actualCategoryList = this.state.recipes.map((recipe) => {
             return recipe.category
@@ -120,7 +147,10 @@ export default class Cookbook extends React.Component {
             const filtredRecipes = this.state.recipes.filter((recipe) => {
                 return recipe.category === cat;
             });
-            return <RecipesInCategories cat={cat} filtredRecipes={filtredRecipes} />
+            const filteredRecipesNames = filtredRecipes.map(recipe => {
+                return recipe.name;
+            });
+            return <RecipesInCategories setSelectedRecipe={this.setSelectedRecipe} cat={cat} filteredRecipesNames={filteredRecipesNames} />
         })}
         </div>
     }

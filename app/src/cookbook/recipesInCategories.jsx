@@ -10,7 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
-
+import Recipe from "./recipe";
 export default class RecipesInCategories extends React.Component {
     constructor(props) {
         super(props);
@@ -22,9 +22,9 @@ export default class RecipesInCategories extends React.Component {
     showRecipes = () => {
         return <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-                {this.props.filtredRecipes.map(recipe => {
-                    return <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary={recipe.name} />
+                {this.props.filteredRecipesNames.map(recipe => {
+                    return <ListItemButton sx={{ pl: 4 }} onClick={()=> this.props.setSelectedRecipe(recipe)}>
+                        <ListItemText primary={recipe} />
                     </ListItemButton>
                 })}
             </List>
