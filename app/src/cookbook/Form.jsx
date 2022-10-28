@@ -15,7 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
+import FormHelperText from '@mui/material/FormHelperText';
 
 export default class FormCreation extends React.Component {
     constructor(props) {
@@ -26,6 +26,7 @@ export default class FormCreation extends React.Component {
             ingredients: [],
             description: "",
             tips: [],
+            categoryInputError: false,
             nameInputError: false,
             ingredientsInputError: false,
             descriptionInputError: false,
@@ -56,7 +57,14 @@ export default class FormCreation extends React.Component {
             this.setState
                 ({ ingredientsInputError: true })
         }
-        if (this.state.name && this.state.description && this.state.ingredients && this.state.ingredients.length) {
+        if (!this.state.category) {
+            this.setState
+                ({ categoryInputError: true })
+        }
+
+
+
+        if (this.state.name && this.state.description && this.state.ingredients && this.state.ingredients.length && this.state.category) {
             console.log(JSON.stringify(this.state))
             this.props.addRecipe(this.state)
             this.setState({
@@ -64,6 +72,7 @@ export default class FormCreation extends React.Component {
                 ingredients: [],
                 description: "",
                 tips: [],
+                categoryInputError: false,
                 nameInputError: false,
                 ingredientsInputError: false,
                 descriptionInputError: false,
@@ -124,25 +133,7 @@ export default class FormCreation extends React.Component {
                     justifyContent="center"
                     alignItems="stretch"
                 >
-                    <Grid item xs={12}>
-                        <FormControl fullWidth>
-                            <InputLabel>Kategoria</InputLabel>
-                            <Select
-                                label="Age"
-                                value={this.state.category}
-                                onChange={this.handleChangeCategory}
-                            >
-                                <MenuItem value="Ciasta" >Ciasta</MenuItem>
-                                <MenuItem value="Dania mięsne">Dania mięsne</MenuItem>
-                                <MenuItem value="Dania mączne">Dania mączne</MenuItem>
-                                <MenuItem value="Ryby">Ryby</MenuItem>
-                                <MenuItem value="Sałatki">Sałatki</MenuItem>
-                                <MenuItem value="Przetwory">Przetwory</MenuItem>
-                                <MenuItem value="Pieczywo">Pieczywo</MenuItem>
-
-
-                            </Select></FormControl>
-                    </Grid>
+                    {this.showCategorySelect()}
 
                     {this.showNameInput()}
 
@@ -170,6 +161,59 @@ export default class FormCreation extends React.Component {
                 </Grid>
             </form>
         );
+    }
+
+    showCategorySelect() {
+        if (this.state.categoryInputError) {
+            return <Grid item xs={12}>
+            <FormControl fullWidth  error>
+                <InputLabel>Kategoria</InputLabel>
+                <Select
+                
+                    label="Category"
+                    value={this.state.category}
+                    onChange={this.handleChangeCategory}
+                    helperText="Nie wybrano kategorii."
+                    id="outlined-name"
+
+                >
+                    <MenuItem value="Ciasta">Ciasta</MenuItem>
+                    <MenuItem value="Dania mięsne">Dania mięsne</MenuItem>
+                    <MenuItem value="Dania mączne">Dania mączne</MenuItem>
+                    <MenuItem value="Ryby">Ryby</MenuItem>
+                    <MenuItem value="Sałatki">Sałatki</MenuItem>
+                    <MenuItem value="Przetwory">Przetwory</MenuItem>
+                    <MenuItem value="Pieczywo">Pieczywo</MenuItem>
+
+
+                </Select>
+                <FormHelperText>Nie wybrano kategorii.</FormHelperText>
+                </FormControl>
+        </Grid>;
+
+        } else {
+            return <Grid item xs={12}>
+            <FormControl fullWidth>
+                <InputLabel>Kategoria</InputLabel>
+                <Select
+                    
+                    label="Age"
+                    value={this.state.category}
+                    onChange={this.handleChangeCategory}
+                >
+                    <MenuItem value="Ciasta">Ciasta</MenuItem>
+                    <MenuItem value="Dania mięsne">Dania mięsne</MenuItem>
+                    <MenuItem value="Dania mączne">Dania mączne</MenuItem>
+                    <MenuItem value="Ryby">Ryby</MenuItem>
+                    <MenuItem value="Sałatki">Sałatki</MenuItem>
+                    <MenuItem value="Przetwory">Przetwory</MenuItem>
+                    <MenuItem value="Pieczywo">Pieczywo</MenuItem>
+
+
+                </Select></FormControl>
+        </Grid>;
+
+        }
     }
 
     showNameInput() {
