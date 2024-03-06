@@ -1,9 +1,9 @@
 import React from "react";
 
-export default class Tip extends React.Component {
-    render() {
-        return <li>
-            {this.props.tipp}
-        </li>
-    }
+export default function Tip (props){
+    return<>
+    <li>
+        {props.tipp}
+    </li>
+    </>
 }
