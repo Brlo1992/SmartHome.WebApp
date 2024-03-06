@@ -94,9 +94,11 @@ export default function Cakebook(props) {
         })}
         </div>
     }
-    const recipeDeletion = (index) => {
+    const recipeDeletion = (recipe) => {
         const rawRecipes = JSON.stringify(recipes);
         const newRecipes = JSON.parse(rawRecipes);
+        const index = newRecipes.findIndex((element)=>{return element.name===recipe.name});
+        console.log(index);
         newRecipes.splice(index, 1)
         setRecipes(newRecipes);
     }

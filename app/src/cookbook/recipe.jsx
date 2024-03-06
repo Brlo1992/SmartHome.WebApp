@@ -7,9 +7,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Divider from '@mui/material/Divider'
 
 export default function Recipe(props) {
+    
     const deletee = () => {
-        props.onRecipeDeletion(props.index)
+        props.onRecipeDeletion(props.recipe)
     }
+    console.log(props);
 
     return <div>
         <h2>{props.recipe.name}
@@ -18,7 +20,6 @@ export default function Recipe(props) {
                 aria-label="delete"
                 onClick={deletee}
             >
-
                 <DeleteIcon fontSize="small" />
             </IconButton></h2>
 
