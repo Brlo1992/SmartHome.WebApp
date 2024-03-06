@@ -1,44 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-export default class RecipesInCategories extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: true
 
-        }
+export default function RecipesInCategories(props) {
+    const [open, setOpen] = useState(true);
+    const handleClick = () => {
+        
+        setOpen(!open.valueOf())
     }
-    showRecipes = () => {
-        return <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+    const showRecipes = () => {
+        return <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-                {this.props.filteredRecipesNames.map(recipe => {
-                    return <ListItemButton sx={{ pl: 4 }} onClick={()=> this.props.setSelectedRecipe(recipe)}>
+                {props.filteredRecipesNames.map(recipe => {
+                    return <ListItemButton sx={{ pl: 4 }} onClick={() => props.setSelectedRecipe(recipe)}>
                         <ListItemText primary={recipe} />
                     </ListItemButton>
                 })}
             </List>
         </Collapse>
     }
-    handleClick = () => {
-        this.setState(prevState => {
-            return {
-                ...prevState,
-                open: !prevState.open
-            }
-        })
-    }
-    render() {
-        return <div>
-            <ListItemButton onClick={this.handleClick}>
-                <ListItemText primary={this.props.cat} />
-                {this.state.open ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            {this.showRecipes()}
-        </div>
-    }
+    return <><div>
+        <ListItemButton onClick={()=>handleClick()}>
+            <ListItemText primary={props.cat} />
+            {
+            open ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        {showRecipes()}
+    </div></>
 }
